@@ -30,3 +30,8 @@ target_link_libraries(ConsoleSort
 		Container
 	)
 
+# may uncomment this not to use a sample file
+set_target_properties(ConsoleSort
+	PROPERTIES
+		VS_DEBUGGER_COMMAND_ARGUMENTS ${CMAKE_CURRENT_SOURCE_DIR}/samples/input1.txt
+	)

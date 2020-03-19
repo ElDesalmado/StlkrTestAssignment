@@ -27,7 +27,7 @@ public:
 	void SetSurname(const std::string& surname);
 	void SetID(size_t id);
 
-	// default compare less: name, surname, id
+	// default compare less: surname, name, id
 	bool operator<(const Person& other) const;
 
 };
@@ -90,7 +90,7 @@ public:
 
 		proxyVec.resize(vec.size());
 
-		std::vector<ProxyIndx> sortIndices{ vec.size() };
+		std::vector<ProxyIndx> sortIndices( vec.size() );
 		for (size_t i = 0; i != vec.size(); ++i)
 			sortIndices[i] = std::make_pair(&vec[i], i);
 
@@ -121,7 +121,7 @@ public:
 	static std::vector<size_t> Sort(const std::vector<T>& vec,
 		const std::function<bool(const T&, const T&)>& compareLess)
 	{
-		std::vector<size_t>	outIndices{ vec.size() };
+		std::vector<size_t>	outIndices( vec.size() );
 
 		Sort(outIndices, vec, compareLess);
 

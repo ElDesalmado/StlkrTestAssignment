@@ -61,11 +61,11 @@ bool Person::operator<(const Person & other) const
 	size_t id1 = ID(),
 		id2 = other.ID();
 
-	return std::tie(Name(), Surname(), id1) <
-		std::tie(other.Name(), other.Surname(), id2);
+	return std::tie(Surname(), Name(), id1) <
+		std::tie(other.Surname(), other.Name(), id2);
 }
 
-inline size_t Container::Size() const
+size_t Container::Size() const
 {
 	return people_.size();
 }
@@ -117,7 +117,6 @@ ProxyContainer::ProxyContainer(Container & container)
 
 void ProxyContainer::SetSorting(std::function<bool(const Person&, const Person&)>&& compareLess)
 {
-	//sortingCompareLess_ = std::move(compareLess);
 	sorter_.SetSorting(std::move(compareLess));
 	Sort();
 }
@@ -140,7 +139,7 @@ Person & ProxyContainer::Get(size_t indx)
 	if (IsDirty())
 		Sort();
 
-	return container_.Get(indx);
+	return container_.Get(TranslateIndx(indx));
 }
 
 const Person & ProxyContainer::Get(size_t indx) const
@@ -148,7 +147,7 @@ const Person & ProxyContainer::Get(size_t indx) const
 	if (IsDirty())
 		Sort();
 
-	return container_.Get(indx);
+	return container_.Get(TranslateIndx(indx));
 }
 
 Person & ProxyContainer::operator[](size_t indx)
